@@ -1,0 +1,79 @@
+.graph-canvas-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.react-flow {
+  background: transparent;
+}
+
+/* trail edges: dashed path with a slow marching-ants drift, like a
+   route drawn in pencil across the map */
+.trail-edge-path {
+  stroke: var(--trail);
+  stroke-width: 1.6;
+  stroke-dasharray: 6 5;
+  animation: trail-march 26s linear infinite;
+}
+
+.trail-edge-path.is-selected {
+  stroke: var(--brass);
+  stroke-width: 2.2;
+}
+
+@keyframes trail-march {
+  to {
+    stroke-dashoffset: -400;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail-edge-path {
+    animation: none;
+  }
+}
+
+.react-flow__edge-path {
+  stroke: var(--trail);
+}
+
+.react-flow__selection {
+  background: rgba(205, 156, 79, 0.08);
+  border: 1px dashed var(--brass);
+}
+
+/* controls */
+.react-flow__controls {
+  box-shadow: var(--shadow-deep);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+}
+
+.react-flow__controls-button {
+  background: var(--ink-elevated);
+  border-bottom: 1px solid var(--line-faint);
+  fill: var(--parchment);
+  color: var(--parchment);
+}
+
+.react-flow__controls-button:hover {
+  background: var(--ink-elevated-2);
+}
+
+/* minimap, styled like a small inset "you are here" map */
+.react-flow__minimap {
+  background: var(--ink-soft);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line-soft);
+  box-shadow: var(--shadow-deep);
+}
+
+.react-flow__attribution {
+  display: none;
+}
+
+.react-flow__node {
+  z-index: 5;
+}

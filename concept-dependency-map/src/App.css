@@ -1,0 +1,43 @@
+.app-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.app-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.app-loading-spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--line-soft);
+  border-top-color: var(--brass);
+  animation: spin 0.9s linear infinite;
+}
+
+.app-loading-text {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--parchment-dim);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-loading-spinner {
+    animation: none;
+  }
+}

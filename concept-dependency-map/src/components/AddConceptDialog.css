@@ -1,0 +1,80 @@
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 11, 13, 0.6);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+}
+
+.dialog-card {
+  width: 420px;
+  max-width: 90vw;
+  max-height: 86vh;
+  overflow-y: auto;
+  background: linear-gradient(180deg, var(--ink-elevated), var(--ink-soft));
+  border: 1px solid var(--line-soft);
+  border-top: 3px solid var(--brass);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-deep);
+  padding: 24px 26px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.dialog-title {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 4px 0 18px;
+  color: var(--parchment);
+}
+
+.dialog-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--parchment-dim);
+  margin-bottom: 6px;
+  margin-top: 14px;
+}
+
+.dialog-label-hint {
+  font-weight: 400;
+  color: var(--parchment-faint);
+}
+
+.dialog-input {
+  font-family: var(--font-body);
+  font-size: 14px;
+  background: var(--ink);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  color: var(--parchment);
+  padding: 9px 11px;
+  resize: vertical;
+}
+
+.dialog-input:focus {
+  border-color: var(--brass);
+}
+
+.dialog-textarea {
+  font-family: var(--font-body);
+  line-height: 1.45;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}

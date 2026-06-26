@@ -1,0 +1,220 @@
+/* ============================================================
+   Waypoint — design tokens
+   A field-guide / trail-map metaphor for prerequisite learning:
+   concepts are waypoints, dependencies are trails, and a student
+   who is "struggling" is a hiker who has lost the path.
+   ============================================================ */
+
+:root {
+  /* color */
+  --ink: #11161a;
+  --ink-soft: #161d22;
+  --ink-elevated: #1d262c;
+  --ink-elevated-2: #232e34;
+
+  --parchment: #ece4d3;
+  --parchment-dim: #b6ac98;
+  --parchment-faint: #7c7567;
+
+  --moss: #84a08a;
+  --moss-dim: #4f6354;
+  --brass: #cd9c4f;
+  --brass-dim: #7a5e34;
+  --rust: #c45a3c;
+  --rust-dim: #6e3527;
+
+  --trail: #6a8478;
+  --trail-dim: #2c3631;
+
+  --line-faint: rgba(236, 228, 211, 0.07);
+  --line-soft: rgba(236, 228, 211, 0.14);
+
+  /* type */
+  --font-display: 'Fraunces', 'Iowan Old Style', serif;
+  --font-body: 'Archivo', 'Helvetica Neue', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* layout */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --shadow-deep: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--parchment);
+  background-color: var(--ink);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- signature element: topographic contour field ----------
+   Two offset layers of hand-drawn-feeling contour lines, each an
+   inline SVG tile, drifting at different speeds to suggest a map
+   that is alive underfoot. Disabled entirely for reduced-motion. */
+
+.contour-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--ink);
+}
+
+.contour-field::before,
+.contour-field::after {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  background-repeat: repeat;
+  background-size: 560px 560px;
+  opacity: 0.5;
+}
+
+.contour-field::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='560' viewBox='0 0 560 560'%3E%3Cg fill='none' stroke='%232c3631' stroke-width='1.1'%3E%3Cpath d='M-20 60 C 80 10, 160 110, 260 60 S 420 10, 580 70'/%3E%3Cpath d='M-20 130 C 90 80, 150 180, 270 130 S 430 80, 580 140'/%3E%3Cpath d='M-20 210 C 70 150, 190 260, 290 200 S 440 150, 580 220'/%3E%3Cpath d='M-20 300 C 100 250, 170 350, 300 290 S 450 240, 580 310'/%3E%3Cpath d='M-20 390 C 90 340, 200 430, 310 380 S 460 330, 580 400'/%3E%3Cpath d='M-20 470 C 110 420, 210 500, 330 460 S 470 410, 580 480'/%3E%3C/g%3E%3C/svg%3E");
+  animation: drift-slow 90s linear infinite;
+}
+
+.contour-field::after {
+  background-size: 380px 380px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='380' height='380' viewBox='0 0 380 380'%3E%3Cg fill='none' stroke='%23394742' stroke-width='0.8'%3E%3Cpath d='M-10 40 C 60 5, 110 75, 190 40 S 310 5, 400 45'/%3E%3Cpath d='M-10 110 C 70 75, 120 145, 200 110 S 320 75, 400 115'/%3E%3Cpath d='M-10 190 C 50 150, 140 230, 210 185 S 330 150, 400 195'/%3E%3Cpath d='M-10 270 C 80 235, 150 305, 220 265 S 340 230, 400 275'/%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.35;
+  animation: drift-fast 60s linear infinite reverse;
+}
+
+@keyframes drift-slow {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-560px, -280px);
+  }
+}
+
+@keyframes drift-fast {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(380px, -380px);
+  }
+}
+
+/* a faint radial "lamplight" so the canvas centre reads as the
+   focal clearing on the map */
+.contour-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+      ellipse 70% 60% at 50% 38%,
+      rgba(205, 156, 79, 0.05),
+      transparent 60%
+    ),
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contour-field::before,
+  .contour-field::after {
+    animation: none;
+  }
+}
+
+/* ---------- shared utility ---------- */
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+button {
+  font-family: inherit;
+}
+
+button:focus-visible,
+[tabindex]:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ink-elevated-2);
+  border-radius: 6px;
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-soft);
+  background: var(--ink-elevated);
+  color: var(--parchment);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.08s ease;
+}
+
+.btn:hover {
+  border-color: var(--trail);
+  background: var(--ink-elevated-2);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--brass-dim);
+  border-color: var(--brass);
+  color: var(--parchment);
+}
+
+.btn-primary:hover {
+  background: var(--brass);
+  color: var(--ink);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  background: var(--line-faint);
+}
+
+.btn[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
